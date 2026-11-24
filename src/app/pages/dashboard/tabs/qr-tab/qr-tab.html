@@ -1,0 +1,26 @@
+<p>qr-tab works!</p>
+<h2>QRコード作成</h2>
+<div class="card">
+  <h3>URL・テキストからQRコードを生成</h3>
+  <p class="sub-text">チームの招待URLや共有リンクなどを入力すると、即座にQRコードを作成して画像保存できます。</p>
+
+  <div class="qr-input-group">
+    <input 
+      type="text" 
+      class="form-input" 
+      [(ngModel)]="inputText" 
+      (input)="generateQrCode()" 
+      placeholder="URLやテキストを入力してください">
+    <button type="button" class="btn-primary" (click)="generateQrCode()">生成</button>
+  </div>
+
+  <div class="qr-preview-box" *ngIf="qrCodeDataUrl">
+    <div class="qr-image-wrapper">
+      <img [src]="qrCodeDataUrl" alt="生成されたQRコード">
+    </div>
+    <p class="qr-caption">{{ inputText }}</p>
+    <a [href]="qrCodeDataUrl" download="team-qrcode.png" class="btn-download">
+      📥 QRコード画像を保存 (.png)
+    </a>
+  </div>
+</div>

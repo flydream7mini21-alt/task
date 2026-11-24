@@ -1,0 +1,141 @@
+<h2>ファイル管理・拡張子セレクター</h2>
+<div class="card">
+  <!-- 1. 共有用 / 自分専用 切り替えタブ -->
+  <div class="scope-tabs">
+    <button 
+      type="button" 
+      class="scope-tab" 
+      [class.active]="activeScope === 'shared'" 
+      (click)="switchScope('shared')">
+      🌐 チーム共有用
+    </button>
+    <button 
+      type="button" 
+      class="scope-tab" 
+      [class.active]="activeScope === 'private'" 
+      (click)="switchScope('private')">
+      🔒 自分専用マイファイル
+    </button>
+  </div>
+
+  <!-- 2. フィルター＆ファイル追加バー -->
+  <div class="file-filter-bar">
+    <select class="form-select" [(ngModel)]="selectedExtension">
+      <option value="all">すべての拡張子</option>
+      <optgroup label="Microsoft Office / ドキュメント">
+        <option value="xlsx">Excel (.xlsx)</option>
+        <option value="docx">Word (.docx)</option>
+        <option value="pptx">PowerPoint (.pptx)</option>
+        <option value="pdf">PDF (.pdf)</option>
+        <option value="txt">Text (.txt)</option>
+        <option value="md">Markdown (.md)</option>
+      </optgroup>
+      <optgroup label="プログラミング言語">
+        <option value="ts">TypeScript (.ts)</option>
+        <option value="js">JavaScript (.js)</option>
+        <option value="py">Python (.py)</option>
+        <option value="java">Java (.java)</option>
+        <option value="html">HTML (.html)</option>
+        <option value="css">CSS (.css)</option>
+      </optgroup>
+    </select>
+
+    <div class="upload-controls">
+      <button type="button" class="btn-create" (click)="showCreateModal = !showCreateModal">
+        ✏️ 新規メモ・コード作成
+      </button>
+
+      <!-- 複数ファイル同時選択可能 -->
+      <input type="file" #fileInput style="display: none" multiple (change)="onFileSelected($event)">
+      <button type="button" class="btn-sync" (click)="triggerFileInput()">
+        ＋ PCからファイルを選択して追加
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. 新規ファイル作成フォーム -->
+  <div class="create-box" *ngIf="showCreateModal">
+    <h4>
+      新規ファイル作成 
+      <span class="create-target-note">
+        （保存先: {{ activeScope === 'shared' ? 'チーム共有用' : '自分専用マイファイル' }} ※自動保存）
+      </span>
+    </h4>
+    <div class="create-row">
+      <input type="text" class="form-input" [(ngModel)]="newFileName" placeholder="ファイル名（拡張子なし）">
+      <select class="form-select" [(ngModel)]="newFileExt">
+        <option value="txt">.txt (テキスト)</option>
+        <option value="md">.md (Markdown)</option>
+        <option value="ts">.ts (TypeScript)</option>
+        <option value="js">.js (JavaScript)</option>
+        <option value="py">.py (Python)</option>
+        <option value="html">.html (HTML)</option>
+        <option value="css">.css (CSS)</option>
+        <option value="csv">.csv (CSV)</option>
+      </select>
+    </div>
+    <textarea class="form-textarea" rows="4" [(ngModel)]="newFileContent" placeholder="ここに内容を入力..."></textarea>
+    <div class="create-actions">
+      <button type="button" class="btn-sync" (click)="createNewFile()">作成して保存</button>
+      <button type="button" class="btn-refresh" (click)="showCreateModal = false">キャンセル</button>
+    </div>
+  </div>
+
+  <!-- 4. ファイル一覧 -->
+  <ul class="file-list">
+    <li class="file-item" *ngFor="let file of filteredFiles" [ngClass]="getExtensionColorClass(file.extension)">
+      <!-- 色分けされたアイコンボックス -->
+      <div class="file-icon-box" [ngClass]="getExtensionColorClass(file.extension)">
+        {{ getFileIcon(file.extension) }}
+      </div>
+
+      <div class="file-info">
+        <div class="file-title-row">
+          <span class="file-name">{{ file.name }}</span>
+          <!-- 拡張子ごとに色分けされるバッジ -->
+          <span class="ext-badge" [ngClass]="getExtensionColorClass(file.extension)">
+            .{{ file.extension.toUpperCase() }}
+          </span>
+        </div>
+        <span class="file-meta">
+          登録者: {{ file.author }} / {{ file.date }} ({{ file.size }})
+        </span>
+      </div>
+
+      <div class="file-actions">
+        <button 
+          type="button" 
+          class="btn-action btn-share" 
+          *ngIf="activeScope === 'private'" 
+          (click)="shareFileToTeam(file)">
+          チームへ共有
+        </button>
+        <button type="button" class="btn-action" (click)="fileService.downloadFile(file)">
+          開く/DL
+        </button>
+        <button type="button" class="btn-action btn-delete" (click)="deleteFile(file.id)">
+          削除
+        </button>
+      </div>
+    </li>
+
+    <!-- 5. 空状態：ここから直接PCのファイルを選択できる -->
+    <li class="empty-state-box" *ngIf="filteredFiles.length === 0">
+      <div class="empty-icon">📁</div>
+      <p class="empty-title">
+        {{ activeScope === 'private' ? '自分専用ファイルがまだありません' : 'チーム共有ファイルがまだありません' }}
+      </p>
+      <p class="empty-desc">
+        PC内のExcelやWordなどのファイルを選択して追加できます。追加したファイルは電源を切っても保持されます。
+      </p>
+      <div class="empty-action-buttons">
+        <button type="button" class="btn-sync" (click)="triggerFileInput()">
+          ＋ PCからファイルを選択して追加
+        </button>
+        <button type="button" class="btn-create" (click)="showCreateModal = true">
+          ✏️ 新規メモ・コード作成
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

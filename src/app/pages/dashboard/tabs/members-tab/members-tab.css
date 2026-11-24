@@ -1,0 +1,49 @@
+/* 招待フォームなどのレイアウト調整 */
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.inline-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* テーブル全体のレイアウト */
+.member-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.member-table th, 
+.member-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #334155;
+}
+
+.member-table th {
+  color: #94a3b8;
+  font-weight: 500;
+  background-color: rgba(51, 65, 85, 0.4);
+}
+
+.member-table td {
+  color: #e2e8f0;
+}
+
+/* テーブル内の小型セレクトボックス */
+.form-select-sm {
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #f8fafc;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background-color: #334155;
+  outline: none;
+}
+
+.form-select-sm:focus {
+  border-color: #cbd5e1;
+}

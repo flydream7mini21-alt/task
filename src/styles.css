@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+/* ブラウザのデフォルトの余白を完全に消し、画面全体をダークテーマにする */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0f172a; /* 画面全体の深いネイビー */
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}

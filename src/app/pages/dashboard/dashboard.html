@@ -1,0 +1,23 @@
+<div class="dashboard-container">
+  <!-- サイドメニュー -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Team Dashboard</div>
+    <nav class="sidebar-nav">
+      <button class="nav-item" (click)="switchTab('overview')" [class.active]="activeTab === 'overview'">📊 まとめ・進捗</button>
+      <button class="nav-item" (click)="switchTab('members')" [class.active]="activeTab === 'members'">👥 メンバー・役職</button>
+      <button class="nav-item" (click)="switchTab('files')" [class.active]="activeTab === 'files'">📁 ファイル共有</button>
+      <button class="nav-item" (click)="switchTab('qr')" [class.active]="activeTab === 'qr'">📱 QRコード作成</button>
+    </nav>
+    <div class="sidebar-footer">
+      <a routerLink="/login" class="logout-link">ログアウト</a>
+    </div>
+  </aside>
+
+  <!-- メインコンテンツ（各タブのコンポーネントを切り替えて表示） -->
+  <main class="main-content">
+    <app-overview-tab *ngIf="activeTab === 'overview'"></app-overview-tab>
+    <app-members-tab *ngIf="activeTab === 'members'"></app-members-tab>
+    <app-files-tab *ngIf="activeTab === 'files'"></app-files-tab>
+    <app-qr-tab *ngIf="activeTab === 'qr'"></app-qr-tab>
+  </main>
+</div>

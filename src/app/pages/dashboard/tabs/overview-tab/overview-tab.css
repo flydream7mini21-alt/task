@@ -1,0 +1,59 @@
+/* カードを2列に並べるレイアウト */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* サマリーテキストやリストのスタイル */
+.summary-text {
+  font-size: 15px;
+  color: #e2e8f0;
+  margin-bottom: 12px;
+}
+
+.sub-text {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.task-mini-list {
+  padding-left: 20px;
+  margin: 8px 0 0 0;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.task-mini-list li {
+  margin-bottom: 8px;
+}
+
+/* ステータスバッジ */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.badge.done {
+  background-color: rgba(22, 101, 52, 0.4);
+  color: #4ade80;
+  border: 1px solid #166534;
+}
+
+.badge.progress {
+  background-color: rgba(3, 105, 161, 0.4);
+  color: #38bdf8;
+  border: 1px solid #0369a1;
+}

@@ -1,0 +1,45 @@
+<div class="auth-container">
+  <h2>新規登録</h2>
+  <form (ngSubmit)="onSignup()">
+    
+    <div class="input-group">
+      <label>ユーザー名</label>
+      <input type="text" name="username" [(ngModel)]="username" required placeholder="山田 太郎">
+    </div>
+
+    <div class="input-group">
+      <label>メールアドレス</label>
+      <input type="email" name="email" [(ngModel)]="email" required placeholder="name@example.com">
+    </div>
+
+    <div class="input-group">
+      <label>パスワード <span style="font-size: 12px; color: #64748b;">(6〜8文字・記号可・スペース不可)</span></label>
+      
+      <!-- パスワード入力欄と「表示切替ボタン」をまとめるラッパー -->
+      <div class="password-wrapper">
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          name="password"
+          [(ngModel)]="password"
+          maxlength="8" 
+          required 
+          placeholder="••••••••">
+        
+        <button type="button" class="toggle-btn" (click)="togglePasswordVisibility()">
+          {{ showPassword ? '非表示' : '表示' }}
+        </button>
+      </div>
+
+      <!-- パスワード自動生成ボタン -->
+      <button type="button" class="btn-sub" (click)="generatePassword()">
+        パスワードを自動生成
+      </button>
+    </div>
+
+    <button type="submit" class="btn-primary">登録する</button>
+  </form>
+
+  <div class="auth-footer">
+    すでにアカウントをお持ちですか？ <a routerLink="/login">ログインはこちら</a>
+  </div>
+</div>

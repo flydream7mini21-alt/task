@@ -1,0 +1,22 @@
+<div class="auth-container">
+  <h2>ログイン</h2>
+  <form (ngSubmit)="onLogin()">
+    <div class="input-group">
+      <label>メールアドレス</label>
+      <input type="email" name="email" [(ngModel)]="email" required placeholder="name@example.com">
+    </div>
+    <div class="input-group">
+      <label>パスワード</label>
+      <input type="password" name="password" [(ngModel)]="password" required placeholder="••••••••">
+    </div>
+    <button type="submit" class="btn-primary">ログイン</button>
+  </form>
+  <div class="auth-footer">
+    アカウントをお持ちでないですか？ <a routerLink="/signup">新規登録はこちら</a>
+  </div>
+</div>
+
+//cd C:\task\team-management-frontend
+//ng serve -o
+
+// ng g c pages/dashboard/tabs/qr-tab フォルダ作成

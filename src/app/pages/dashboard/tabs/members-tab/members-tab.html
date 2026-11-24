@@ -1,0 +1,54 @@
+<h2>メンバー管理・招待 & 役職割り振り</h2>
+
+<!-- 招待フォーム -->
+<div class="card mb-20">
+  <h3>メールアドレスで招待</h3>
+  <div class="inline-form">
+    <input type="email" placeholder="invited@example.com" class="form-input" [(ngModel)]="inviteEmail">
+    <select class="form-select" [(ngModel)]="inviteRole">
+      <option value="leader">チームリーダー</option>
+      <option value="developer">開発エンジニア</option>
+      <option value="designer">UIデザイナー</option>
+    </select>
+    <button class="btn-primary" (click)="inviteMember()">招待送信</button>
+  </div>
+</div>
+
+<!-- メンバー一覧 & 役職 -->
+<div class="card">
+  <h3>参加メンバー一覧</h3>
+  <table class="member-table">
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th>メールアドレス</th>
+        <th>役職</th>
+        <th>進捗状況</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>市川 夢翔</td>
+        <td>itika@example.com</td>
+        <td>
+          <select class="form-select-sm">
+            <option selected>インフラエンジニア</option>
+            <option>リーダー</option>
+          </select>
+        </td>
+        <td><span class="badge progress">進行中</span></td>
+      </tr>
+      <tr>
+        <td>サンプル 太郎</td>
+        <td>taro@example.com</td>
+        <td>
+          <select class="form-select-sm">
+            <option>フロントエンド</option>
+            <option selected>UIデザイナー</option>
+          </select>
+        </td>
+        <td><span class="badge done">完了</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
